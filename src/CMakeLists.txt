@@ -1,0 +1,15 @@
+enable_language(C)
+
+file(GLOB SRC_FILES ${CMAKE_SOURCE_DIR}/src/*.c)
+add_library(deque ${SRC_FILES})
+set_target_properties(deque PROPERTIES LINKER_LANGUAGE "C")
+
+if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+    if(${CMAKE_C_COMPILER_ID} MATCHES "(Apple)?[Cc]lang")
+        target_compile_options(deque PRIVATE -fprofile-instr-generate -fcoverage-mapping)
+        target_link_options(deque PRIVATE -fprofile-instr-generate -fcoverage-mapping)
+    elseif(${CMAKE_C_COMPILER_ID} MATCHES "GNU")
+        target_compile_options(deque PRIVATE --coverage)
+        target_link_options(deque PRIVATE --coverage)
+    endif()
+endif()

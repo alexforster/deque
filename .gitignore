@@ -1,0 +1,7 @@
+.idea
+cmake-*
+
+bin
+!bin/.gitkeep
+lib
+!lib/.gitkeep
